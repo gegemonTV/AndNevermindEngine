@@ -17,7 +17,9 @@ import com.minerva.andnevermindengine.Core.Object.Property;
 import com.minerva.andnevermindengine.Core.Object.Object;
 import com.minerva.andnevermindengine.Core.Settings.Settings;
 
-public class ColorAnimation extends Property {
+import java.util.TimerTask;
+
+public class ColorAnimation extends Property{
 
     private Object object;
     ColorMatrix currentColorMatrix;
@@ -66,7 +68,9 @@ public class ColorAnimation extends Property {
         this.acceleration = acceleration;
     }
 
-    @Override
+
+
+
     public void update() {
         if (Math.abs(colorMatrix[0] - endA) <= 0.05f && Math.abs(colorMatrix[18] - endB) <= 0.05f && Math.abs(colorMatrix[6] - endR) <= 0.05f && Math.abs(colorMatrix[12] - endG) <= 0.05f){
             colorMatrix[0] = endR;
@@ -84,6 +88,11 @@ public class ColorAnimation extends Property {
 
         object.setColorFilter(new ColorMatrix(colorMatrix));
 
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

@@ -30,11 +30,9 @@ public class Scene {
     public int bottomLayer = 0;
 
     public int width, height;
+    
 
-    LifecycleOwner owner;
-
-    public Scene(int layerCount, int width, int height, LifecycleOwner owner) {
-        this.owner = owner;
+    public Scene(int layerCount, int width, int height) {
 
         this.layerCount = layerCount;
         this.width = width;
@@ -119,5 +117,11 @@ public class Scene {
             l.update();
         }
 
+    }
+
+    public void triggerOnClickListeners(float f, float g){
+        for (Layer l : layers){
+            l.triggerOnClickListeners(f, g);
+        }
     }
 }

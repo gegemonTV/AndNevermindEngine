@@ -6,7 +6,9 @@
 
 package com.minerva.andnevermindengine.Core.Object;
 
-public abstract class Property {
+import java.util.TimerTask;
+
+public abstract class Property extends TimerTask {
 
     private boolean ended = false;
 
@@ -17,6 +19,4 @@ public abstract class Property {
     public void setEnded(boolean ended) {
         this.ended = ended;
     }
-
-    public abstract void update();
 }

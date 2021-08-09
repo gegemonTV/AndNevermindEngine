@@ -6,6 +6,7 @@
 
 package com.minerva.andnevermindengine.Core.Primitives;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.Log;
 
 import androidx.annotation.DrawableRes;
@@ -30,10 +32,7 @@ public class Sprite extends Point {
     private Bitmap currentImage;
     Matrix matrix = new Matrix();
 
-    ColorMatrix colorMatrix = new ColorMatrix(new float[]{255, 0, 0, 0, 0,
-                                                          0, 255, 0, 0, 0,
-                                                          0, 0, 255, 0, 0,
-                                                          0, 0, 0, 255, 0});
+    ColorMatrix colorMatrix = new ColorMatrix();
 
     int width = 0, height = 0;
 
@@ -83,6 +82,21 @@ public class Sprite extends Point {
         } catch (IOException e){
             currentImage = null;
         }
+        type = Type.SPRITE;
+        width = currentImage.getWidth();
+        height = currentImage.getHeight();
+        autoResize();
+        Log.d("Sprite", "Sprite " + s + " loaded!");
+    }
+
+    public Sprite(String s, AssetManager am, Rect rect){
+        super(0, 0);
+        try {
+            currentImage = BitmapFactory.decodeStream(am.open(s));
+        } catch (IOException e){
+            currentImage = null;
+        }
+        currentImage = Bitmap.createBitmap(currentImage, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, matrix, false);
         type = Type.SPRITE;
         width = currentImage.getWidth();
         height = currentImage.getHeight();
@@ -160,18 +174,18 @@ public class Sprite extends Point {
 
     @Override
     public boolean isChoosed(float f, float g) {
-        return (x > this.x && x < (this.x + this.width) && y > this.y
-                && y < (this.y + this.height));
+        return (f > this.x - anchorX && f < (this.x + this.width) - anchorX && g > this.y - anchorY
+                && g < (this.y + this.height) - anchorY);
     }
 
     @Override
     public void draw(Paint p, Canvas c) {
-        p.setColorFilter(new ColorMatrixColorFilter(new ColorMatrix(colorMatrix)));
+        p.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
         c.drawBitmap(currentImage, matrix, p);
-        p.setColorFilter(new ColorMatrixColorFilter(new ColorMatrix(new float[]{1, 0, 0, 0, 0,
-                0, 1, 0, 0, 0,
-                0, 0, 1, 0, 0,
-                0, 0, 0, 1, 0})));
+        p.setColorFilter(new ColorMatrixColorFilter(new ColorMatrix(new float[]{255, 0, 0, 0, 0,
+                0, 255, 0, 0, 0,
+                0, 0, 255, 0, 0,
+                0, 0, 0, 255, 0})));
     }
 
     public void setColor(ColorMatrix color) {

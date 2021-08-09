@@ -54,7 +54,7 @@ public class TransitionAnimation extends Property {
     }
 
     @Override
-    public void update() {
+    public void run() {
         object.setX(object.getX() + velocityX * acceleration);
         object.setY(object.getY() + velocityY * acceleration);
 
@@ -77,6 +77,4 @@ public class TransitionAnimation extends Property {
             }
         }
     }
-
-
 }

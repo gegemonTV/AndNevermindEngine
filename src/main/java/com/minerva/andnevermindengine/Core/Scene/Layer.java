@@ -88,4 +88,12 @@ public class Layer {
     public boolean isProcessing(){
         return this.processing;
     }
+
+    public void triggerOnClickListeners(float f, float g){
+        for (Object o: objects){
+            if (o.isSelected(f, g)){
+                o.triggerOnClick();
+            }
+        }
+    }
 }

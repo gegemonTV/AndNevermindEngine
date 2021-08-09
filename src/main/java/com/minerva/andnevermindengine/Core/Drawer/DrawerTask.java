@@ -8,6 +8,7 @@ package com.minerva.andnevermindengine.Core.Drawer;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.minerva.andnevermindengine.Core.Object.Object;
@@ -30,10 +31,12 @@ public class DrawerTask extends TimerTask {
         this.holder = holder;
         this.scene = scene;
         this.mainPaint = new Paint();
+        mainPaint.setFlags(Paint.ANTI_ALIAS_FLAG);
     }
 
     @Override
     public void run() {
+        Log.d("Draw", scene.getClass().getName());
         try {
             canvas = null;
             canvas = holder.lockCanvas();

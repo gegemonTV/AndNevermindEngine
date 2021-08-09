@@ -64,4 +64,8 @@ public class DrawingSurface extends SurfaceView implements SurfaceHolder.Callbac
         drawerTask.setScene(currentScene);
         Log.d("SceneSetter", currentScene.getClass().getName());
     }
+
+    public void triggerOnClickListeners(float f, float g){
+        currentScene.triggerOnClickListeners(f, g);
+    }
 }
