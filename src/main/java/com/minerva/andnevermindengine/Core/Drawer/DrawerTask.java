@@ -50,7 +50,7 @@ public class DrawerTask extends TimerTask {
                     }
                 }
             }
-            scene.update();
+            //scene.update();
             Settings.newFrame();
         } catch (Exception ignored){
 

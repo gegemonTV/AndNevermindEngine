@@ -15,6 +15,7 @@ import android.graphics.Paint;
 
 import androidx.annotation.DrawableRes;
 
+import com.minerva.andnevermindengine.Core.Animations.AnimationController;
 import com.minerva.andnevermindengine.Core.Listeners.OnClickListener;
 import com.minerva.andnevermindengine.Core.Primitives.Sprite;
 
@@ -33,12 +34,6 @@ public abstract class Object {
     private float x, y;
 
     public void update(){
-        for (int i = 0; i < properties.size(); i++){
-            properties.get(i).update();
-            if (properties.get(i).isEnded()){
-                properties.remove(i);
-            }
-        }
     }
 
     public void draw(Canvas c, Paint p){

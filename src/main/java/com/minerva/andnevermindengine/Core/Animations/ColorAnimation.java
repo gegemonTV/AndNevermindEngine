@@ -19,7 +19,7 @@ import com.minerva.andnevermindengine.Core.Settings.Settings;
 
 import java.util.TimerTask;
 
-public class ColorAnimation extends Property{
+public class ColorAnimation extends Animation{
 
     private Object object;
     ColorMatrix currentColorMatrix;
@@ -64,14 +64,8 @@ public class ColorAnimation extends Property{
         velocityB = (endColor.blue() - startColor.blue()) * 0.001f * Settings.TargetUpdateInterval * acceleration;
     }
 
-    public void setAcceleration(float acceleration) {
-        this.acceleration = acceleration;
-    }
-
-
-
-
-    public void update() {
+    @Override
+    public void run() {
         if (Math.abs(colorMatrix[0] - endA) <= 0.05f && Math.abs(colorMatrix[18] - endB) <= 0.05f && Math.abs(colorMatrix[6] - endR) <= 0.05f && Math.abs(colorMatrix[12] - endG) <= 0.05f){
             colorMatrix[0] = endR;
             colorMatrix[6] = endG;
@@ -79,6 +73,7 @@ public class ColorAnimation extends Property{
             colorMatrix[18] = endA;
             if (!endless){
                 setEnded(true);
+                controller.triggerOnAnimationEnded();
             }
         }
         colorMatrix[0] += velocityR;
@@ -87,12 +82,5 @@ public class ColorAnimation extends Property{
         colorMatrix[18] += velocityA;
 
         object.setColorFilter(new ColorMatrix(colorMatrix));
-
-
-    }
-
-    @Override
-    public void run() {
-
     }
 }

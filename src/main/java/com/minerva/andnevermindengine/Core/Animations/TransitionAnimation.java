@@ -14,7 +14,7 @@ import com.minerva.andnevermindengine.Core.Object.Object;
 import com.minerva.andnevermindengine.Core.Primitives.Point;
 import com.minerva.andnevermindengine.Core.Settings.Settings;
 
-public class TransitionAnimation extends Property {
+public class TransitionAnimation extends Animation {
 
     public static final String TAG = "TransitionAnimation";
 
@@ -71,6 +71,7 @@ public class TransitionAnimation extends Property {
             velocityX = 0;
             if(!endless){
                 this.setEnded(true);
+                controller.triggerOnAnimationEnded();
             } else{
                 object.setX(pointStart.getX());
                 object.setY(pointStart.getY());
